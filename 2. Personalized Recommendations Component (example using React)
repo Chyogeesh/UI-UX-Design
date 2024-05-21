@@ -1,0 +1,21 @@
+import React from 'react';
+
+const RecommendedContent = ({ recommendations }) => {
+  return (
+    <div className="recommended-content">
+      <h2>Recommended for {/* Child's name */}</h2>
+      <ul>
+        {recommendations.map((item, index) => (
+          <li key={index}>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              {item.title}
+            </a>
+            <p>{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default RecommendedContent;
