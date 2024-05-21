@@ -1,0 +1,49 @@
+import React from 'react';
+import Chart from 'chart.js'; // Assuming Chart.js for progress visualization
+
+const ChildProfile = ({ childData }) => {
+  const { name, skills, progress } = childData;
+
+  // Logic to calculate progress percentages for each skill
+
+  React.useEffect(() => {
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(progress), // Extract skill names from progress object
+        datasets: [{
+          label: 'Progress',
+          data: Object.values(progress), // Extract progress values
+          backgroundColor: ['#F7CA44', '#90CAF9', '#C2C2F0'], // Sample color scheme
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              max: 100, // Assuming progress is represented as a percentage
+            }
+          }]
+        }
+      }
+    });
+  }, []);
+
+  return (
+    <div className="child-profile">
+      <h2>{name}'s Profile</h2>
+      <div className="progress-chart">
+        <canvas id="progressChart"></canvas> </div>
+      <ul className="skills-list">
+        {Object.entries(skills).map(([skill, level]) => (
+          <li key={skill}>{skill}: {level}</li>
+        ))}
+      </ul>
+      {/* Additional information and progress details can be added here */}
+    </div>
+  );
+};
+
+export default ChildProfile;
